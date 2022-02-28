@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint --dir src",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "eslint-plugin-jest": "^26.1.1",
@@ -34,10 +35,12 @@
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
+    "prettier": "^2.5.1",
     "ts-jest": "^27.1.3",
     "typescript": "^4.5.5"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.(tsx|ts)": "eslint --cache --fix",
+    "*": "prettier --write --ignore-unknown"
   }
 }
