@@ -48,7 +48,7 @@ describe("counter", () => {
     });
     describe("when user enters 9 as input value", () => {
       beforeEach(() => {
-        user.type(screen.getByLabelText(/incrementor/i), "9");
+        user.type(screen.getByLabelText(/incrementor/i), "{selectall}9");
       });
       describe("when + is clicked", () => {
         beforeEach(() => {
@@ -67,10 +67,22 @@ describe("counter", () => {
             screen.getByRole("button", { name: /Subtract from counter/i })
           );
         });
-        it("renders current count=-18", () => {
-          expect(screen.getByText(/Current Count: -18/)).toBeInTheDocument();
+        it("renders current count=0", () => {
+          expect(screen.getByText(/Current Count: 0/)).toBeInTheDocument();
         });
       });
+    });
+    describe("when user delete input value then increment", () => {
+      beforeEach(() => {
+        user.type(screen.getByLabelText(/incrementor/i), "{selectall}{del}");
+        user.click(
+          screen.getByRole("button", { name: /add to counter/i })
+        );
+      });
+      it("renders current count=10", () => {
+        expect(screen.getByText(/Current Count: 10/)).toBeInTheDocument();
+      });
+
     });
   });
 });
