@@ -15,13 +15,11 @@ export function Counter({ description, defaultCount }: CounterProps) {
         DESC: {description} - DC: {defaultCount}
       </h2>
       <label>
-        Incrementor:
+        incrementor
         <input
-          value={incrementor}
-          onChange={(evt) => {
-            setIncrementor(parseInt(evt.target.value) || 1);
-          }}
           type="number"
+          value={incrementor}
+          onChange={(e) => setIncrementor(parseInt(e.target.value) || 1)}
         />
       </label>
       <button
