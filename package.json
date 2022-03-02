@@ -11,7 +11,8 @@
     "test:ci": "jest --coverage --silent --ci",
     "prepare": "husky install",
     "prettier": "prettier {*,src/*,src/**/*} --write --ignore-unknown",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "eslint-plugin-jest": "^26.1.1",
