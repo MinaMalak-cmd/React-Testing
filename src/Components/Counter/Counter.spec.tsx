@@ -60,7 +60,15 @@ describe("counter", () => {
           expect(screen.getByText(/Current Count: 18/)).toBeInTheDocument();
         });
       });
-
+      describe("when + is clicked twice", () => {
+        it("renders current count=27", () => {
+          const increment = screen.getByRole("button", {
+            name: /add to counter/i,
+          });
+          user.dblClick(increment);
+          expect(screen.getByText(/Current Count: 27/)).toBeInTheDocument();
+        });
+      });
       describe("when - is clicked", () => {
         beforeEach(() => {
           fireEvent.click(
@@ -75,14 +83,11 @@ describe("counter", () => {
     describe("when user delete input value then increment", () => {
       beforeEach(() => {
         user.type(screen.getByLabelText(/incrementor/i), "{selectall}{del}");
-        user.click(
-          screen.getByRole("button", { name: /add to counter/i })
-        );
+        user.click(screen.getByRole("button", { name: /add to counter/i }));
       });
       it("renders current count=10", () => {
         expect(screen.getByText(/Current Count: 10/)).toBeInTheDocument();
       });
-
     });
   });
 });
