@@ -21,6 +21,7 @@ describe("counter", () => {
         );
       });
       it("renders current count=1", () => {
+        const findBy = await findByText;
         expect(screen.getByText(/Current Count: 1/)).toBeInTheDocument();
       });
     });
