@@ -1,4 +1,8 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { Counter } from "./Counter";
 import user from "@testing-library/user-event";
 
@@ -69,6 +73,9 @@ describe("counter", () => {
         });
         it("renders current count=27", async () => {
           expect(screen.getByText(/Current Count: 27/)).toBeInTheDocument();
+        });
+        it("removed spinner", async () => {
+          await waitForElementToBeRemoved(screen.queryByText("I'm too small"));
         });
       });
       describe("when - is clicked", () => {
