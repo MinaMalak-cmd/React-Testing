@@ -33,7 +33,7 @@ export function Counter({ description, defaultCount }: CounterProps) {
         aria-label="Add to Counter"
         onClick={() =>
           setTimeout(() => {
-            setCount(count + incrementor);
+            setCount((c) => c + incrementor);
           }, 200)
         }
       >
