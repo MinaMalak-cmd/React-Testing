@@ -65,9 +65,8 @@ describe("counter", () => {
             name: /add to counter/i,
           });
           await waitFor(() => user.dblClick(increment));
-          await waitFor(() =>
-            expect(screen.getByText(/Current Count: 27/)).toBeInTheDocument()
-          );
+          const findBy = await screen.findByText(/Current Count: 27/);
+          expect(findBy).toBeInTheDocument();
         });
       });
       describe("when - is clicked", () => {
