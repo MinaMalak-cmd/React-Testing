@@ -60,13 +60,15 @@ describe("counter", () => {
         });
       });
       describe("when + is clicked twice", () => {
-        it("renders current count=27", async () => {
-          const increment = await screen.findByRole("button", {
+        beforeEach(async () => {
+          const increment = screen.getByRole("button", {
             name: /add to counter/i,
           });
-          await waitFor(() => user.dblClick(increment));
-          const findBy = await screen.findByText(/Current Count: 27/);
-          expect(findBy).toBeInTheDocument();
+          user.dblClick(increment);
+          await screen.findByText(/Current Count: 27/);
+        });
+        it("renders current count=27", async () => {
+          expect(screen.getByText(/Current Count: 27/)).toBeInTheDocument();
         });
       });
       describe("when - is clicked", () => {
