@@ -62,6 +62,9 @@ describe("counter", () => {
           const findBy = await screen.findByText(/Current Count: 18/);
           expect(findBy).toBeInTheDocument();
         });
+        it("removed spinner", async () => {
+          await waitForElementToBeRemoved(screen.queryByText("I'm too small"));
+        });
       });
       describe("when + is clicked twice", () => {
         beforeEach(async () => {
@@ -73,9 +76,6 @@ describe("counter", () => {
         });
         it("renders current count=27", async () => {
           expect(screen.getByText(/Current Count: 27/)).toBeInTheDocument();
-        });
-        it("removed spinner", async () => {
-          await waitForElementToBeRemoved(screen.queryByText("I'm too small"));
         });
       });
       describe("when - is clicked", () => {
