@@ -1,4 +1,8 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { Counter } from "./Counter";
 import user from "@testing-library/user-event";
 
@@ -16,18 +20,18 @@ describe("counter", () => {
     });
     describe("when + is clicked", () => {
       beforeEach(() => {
-        fireEvent.click(
-          screen.getByRole("button", { name: /add to counter/i })
-        );
+        user.click(screen.getByRole("button", { name: /add to counter/i }));
       });
-      it("renders current count=1", () => {
-        expect(screen.getByText(/Current Count: 1/)).toBeInTheDocument();
+      it("renders current count=1", async () => {
+        const findBy = await screen.findByText(/Current Count: 1/);
+        // expect(screen.getByText(/Current Count: 1/)).toBeInTheDocument(); //in case of sync code
+        expect(findBy).toBeInTheDocument(); //in case of async code
       });
     });
 
     describe("when - is clicked", () => {
       beforeEach(() => {
-        fireEvent.click(
+        user.click(
           screen.getByRole("button", { name: /Subtract from counter/i })
         );
       });
@@ -52,26 +56,31 @@ describe("counter", () => {
       });
       describe("when + is clicked", () => {
         beforeEach(() => {
-          fireEvent.click(
-            screen.getByRole("button", { name: /add to counter/i })
-          );
+          user.click(screen.getByRole("button", { name: /add to counter/i }));
         });
-        it("renders current count=18", () => {
-          expect(screen.getByText(/Current Count: 18/)).toBeInTheDocument();
+        it("renders current count=18", async () => {
+          const findBy = await screen.findByText(/Current Count: 18/);
+          expect(findBy).toBeInTheDocument();
+        });
+        it("removed spinner", async () => {
+          await waitForElementToBeRemoved(screen.queryByText("I'm too small"));
         });
       });
       describe("when + is clicked twice", () => {
-        it("renders current count=27", () => {
+        beforeEach(async () => {
           const increment = screen.getByRole("button", {
             name: /add to counter/i,
           });
           user.dblClick(increment);
+          await screen.findByText(/Current Count: 27/);
+        });
+        it("renders current count=27", async () => {
           expect(screen.getByText(/Current Count: 27/)).toBeInTheDocument();
         });
       });
       describe("when - is clicked", () => {
         beforeEach(() => {
-          fireEvent.click(
+          user.click(
             screen.getByRole("button", { name: /Subtract from counter/i })
           );
         });
@@ -85,8 +94,9 @@ describe("counter", () => {
         user.type(screen.getByLabelText(/incrementor/i), "{selectall}{del}");
         user.click(screen.getByRole("button", { name: /add to counter/i }));
       });
-      it("renders current count=10", () => {
-        expect(screen.getByText(/Current Count: 10/)).toBeInTheDocument();
+      it("renders current count=10", async () => {
+        const findBy = await screen.findByText(/Current Count: 10/);
+        expect(findBy).toBeInTheDocument();
       });
     });
   });
